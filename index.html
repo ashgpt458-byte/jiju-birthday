@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Jiju 🎂</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#062f33,#0b5558);color:#fff;text-align:center;overflow-x:hidden}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px}
+.hero h2{font-size:32px;margin-bottom:25px}
+button{padding:16px 34px;font-size:20px;font-weight:bold;border:0;border-radius:40px;cursor:pointer;background:#f7d4b5;color:#07373a;box-shadow:0 8px 25px #0005}
+button:hover{transform:scale(1.04)}
+#countdown{font-size:90px;font-weight:bold;min-height:105px;margin-top:20px}
+#countText{font-size:20px}
+#content{padding:45px 18px}
+.hidden{display:none}
+h1{font-size:clamp(42px,8vw,76px);margin:10px 0}
+.subtitle{font-size:24px;margin-bottom:20px}
+.msg{max-width:800px;margin:30px auto;font-size:21px;line-height:1.6}
+audio{width:min(500px,90%);margin:15px auto 30px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;max-width:1100px;margin:20px auto 50px}
+.gallery img{width:100%;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 8px 25px #0006}
+video{width:min(850px,95%);max-height:600px;border-radius:18px;box-shadow:0 8px 25px #0006}
+.confetti{position:fixed;top:-20px;font-size:25px;animation:fall 4s linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+</style>
+</head>
+<body>
+
+<div class="hero" id="hero">
+  <h2>🎁 A Little Birthday Surprise For You 🎁</h2>
+  <button id="openBtn" onclick="startCountdown()">CLICK TO OPEN ❤️</button>
+  <div id="countdown"></div>
+  <p id="countText"></p>
+</div>
+
+<div id="content" class="hidden">
+  <h1>🎉 HAPPY BIRTHDAY JIJU! 🎉</h1>
+  <div class="subtitle">Wishing you the happiest birthday! ❤️</div>
+
+  <audio id="song" controls>
+    <source src="birthday_song.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="msg">
+    Wishing you an amazing year filled with happiness, laughter,
+    good health, success and lots of wonderful memories. 🥳
+    <br><br>
+    Have the BEST birthday, Jiju! 🎂❤️
+  </div>
+
+  <h2>📸 Some Special Memories</h2>
+  <div class="gallery">
+    <img src="photo1.png" alt="Birthday memory">
+    <img src="photo2.png" alt="Birthday memory">
+    <img src="photo3.png" alt="Birthday memory">
+    <img src="photo4.png" alt="Birthday memory">
+    <img src="photo5.png" alt="Birthday memory">
+    <img src="photo6.png" alt="Birthday memory">
+  </div>
+
+  <h2>🎥 One More Memory</h2>
+  <video controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<script>
+function startCountdown(){
+  const btn=document.getElementById('openBtn');
+  const countdown=document.getElementById('countdown');
+  const text=document.getElementById('countText');
+  btn.style.display='none';
+  let n=5;
+  countdown.textContent=n;
+  text.textContent='Get ready... 🎁';
+
+  const timer=setInterval(()=>{
+    n--;
+    if(n>0){
+      countdown.textContent=n;
+    }else{
+      clearInterval(timer);
+      countdown.textContent='🎉';
+      text.textContent='SURPRISE!!!';
+      setTimeout(openGift,700);
+    }
+  },1000);
+}
+
+function openGift(){
+  document.getElementById('hero').style.display='none';
+  document.getElementById('content').classList.remove('hidden');
+
+  const song=document.getElementById('song');
+  song.play().catch(()=>{
+    // Browser may require the audio control to be tapped manually.
+  });
+
+  for(let i=0;i<45;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.textContent=['🎉','🎊','✨','🎈','❤️'][Math.floor(Math.random()*5)];
+    c.style.left=Math.random()*100+'vw';
+    c.style.animationDelay=Math.random()*1.5+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5500);
+  }
+}
+</script>
+</body>
+</html>
